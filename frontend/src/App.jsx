@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import MapView from "./components/MapView";
 import ReportForm from "./components/ReportForm";
@@ -9,7 +7,6 @@ import { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, Plus, RefreshCw, Menu, MapPin, X } from "lucide-react";
 
@@ -19,7 +16,6 @@ function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
-  const [activeTab, setActiveTab] = useState("map");
 
   useEffect(() => {
     loadReports();
@@ -118,34 +114,6 @@ function App() {
           />
         </div>
 
-        {/* Mobile Tabs (visible on small screens) */}
-        <div className="md:hidden absolute top-0 left-0 right-0 bg-background/80 backdrop-blur-sm border-b z-10">
-          <Tabs
-            defaultValue="map"
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="w-full"
-          >
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="map">Map View</TabsTrigger>
-              <TabsTrigger value="list">List View</TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
-
-        {/* Mobile List View (shows instead of map on mobile when selected) */}
-        <div
-          className={`absolute inset-0 bg-background z-20 ${
-            activeTab === "map" ? "hidden" : "block md:hidden"
-          }`}
-        >
-          <ReportsList
-            reports={reports}
-            onReportSelect={handleReportSelect}
-            className="p-4"
-          />
-        </div>
-
         {/* Floating action button - always visible */}
         <motion.div
           className="absolute bottom-6 right-6 z-40"
@@ -204,20 +172,24 @@ function App() {
         )}
       </div>
 
-      {/* Enhanced Footer */}
+      {/*Footer */}
       <footer className="border-t py-4 bg-card">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center space-x-2">
-              <div className="bg-primary p-1 rounded-full">
-                <MapPin className="h-4 w-4 text-primary-foreground" />
-              </div>
-              <span className="font-semibold">PulsePoint</span>
-            </div>
-
-            <div className="text-sm text-muted-foreground">
+          {/*accreditation section */}
+          <div className="mt-4 pt-4 border-t border-border/50 text-center">
+            <div className="text-sm font-medium">
               &copy; {new Date().getFullYear()} PulsePoint Crisis Reporting
               System
+            </div>
+            <div className="text-xs text-muted-foreground mt-1">
+              Map data &copy;{" "}
+              <a
+                href="https://www.openstreetmap.org/copyright"
+                className="underline hover:text-foreground"
+              >
+                OpenStreetMap
+              </a>{" "}
+              contributors
             </div>
           </div>
         </div>
