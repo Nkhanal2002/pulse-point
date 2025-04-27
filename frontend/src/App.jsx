@@ -9,6 +9,12 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, Plus, RefreshCw, Menu, MapPin, X } from "lucide-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 function App() {
   const [reports, setReports] = useState([]);
@@ -90,6 +96,16 @@ function App() {
                 <RefreshCw className="h-4 w-4" />
               )}
             </Button>
+            <div className="user-login">
+              <SignedOut>
+                <SignInButton>
+                  <Button className="hidden md:flex">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
 
             <Button
               variant="ghost"
